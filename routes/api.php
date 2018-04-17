@@ -16,3 +16,10 @@ use Illuminate\Http\Request;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::get('fugitive',function(Request $request){
+  $client = new GuzzleHttp\Client(['base_uri' => 'https://api.fbi.gov/']);
+//dd($client);
+  $res = $client->request('GET','wanted/v1/list/');
+  return $res->getBody();
+});
